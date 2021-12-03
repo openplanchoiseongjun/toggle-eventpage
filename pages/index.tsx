@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={callNative}>네이티브함수호출1</button>
+      <button onClick={callNative}>네이티브함수호출12</button>
     </div>
   );
 };
