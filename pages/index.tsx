@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   const callNative = () => {
     try {
       // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
-      (window as any).webkit.messageHandlers.scriptHandler.postMessage(
+      (window as any).webkit.messageHandlers.callbackHandler.postMessage(
         "메세지호출"
       );
     } catch (err) {
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={callNative}>네이티브함수호출</button>
+      <button onClick={callNative}>네이티브함수호출1</button>
     </div>
   );
 };
