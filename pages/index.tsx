@@ -7,7 +7,9 @@ const Home: NextPage = () => {
   const callNative = () => {
     try {
       // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
-      window.webkit.messageHandlers.scriptHandler.postMessage("메세지호출");
+      (window as any).webkit.messageHandlers.scriptHandler.postMessage(
+        "메세지호출"
+      );
     } catch (err) {
       alert(err);
     }
