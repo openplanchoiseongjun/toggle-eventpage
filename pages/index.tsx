@@ -5,14 +5,10 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const callNative = () => {
-    try {
-      // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
-      (window as any).webkit.messageHandlers.callbackHandler.postMessage(
-        "메세지호출"
-      );
-    } catch (err) {
-      alert(err);
-    }
+    // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
+    (window as any).webkit.messageHandlers.iosMessage.postMessage(
+      "메세지호출1"
+    );
   };
 
   return (
