@@ -1,31 +1,22 @@
-# Get NPM packages
-FROM node:14-alpine AS dependencies
-RUN apk add --no-cache libc6-compat
+# Dockerfile
+FROM node:14 as base
+
 WORKDIR /app
+
 COPY package.json package-lock.json ./
-RUN npm ci --only=production
 
-# Rebuild the source code only when needed
-FROM node:14-alpine AS builder
-WORKDIR /app
+RUN npm ci
+
+ENV CONTINUOUS_INTEGRATION=1
+
+ENV NODE_ENV=production
+
 COPY . .
-COPY --from=dependencies /app/node_modules ./node_modules
+
 RUN npm run build
+# next 의 default port 는 3000 번 이지만 beanstalk 의 default port 는 8081 이기 때문에
+# 간편하게 맞추고자 8081 로 실행합니다.
 
-# Production image, copy all the files and run next
-FROM node:14-alpine AS runner
-WORKDIR /app
+EXPOSE 8081 
 
-ENV NODE_ENV production
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
