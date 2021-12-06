@@ -7,24 +7,26 @@ interface DataList {
   screen_moving_code: string;
   screen_moving_url: string;
 }
+
 const Home: NextPage = () => {
-  function sendMessage(msg: DataList) {
-    (window as any).android.setMessage(msg);
-  }
+  // function sendMessage(msg: DataList) {
+  //   (window as any).android.setMessage(msg);
+  // }
+
   const callNative = () => {
-    const data: DataList = {
+    let data: DataList = {
       screen_moving_div_code: "CM03000003",
       screen_moving_code: "",
       screen_moving_url:
         "https://kr.trip.com/sale/w/2348/weekendsupersale.html?locale=ko_kr&AllianceID=1299066&SID=3763636",
     };
-    console.log(data);
+
     // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
     if ((window as any).webkit) {
       (window as any).webkit.messageHandlers.iosMessage.postMessage(data);
     }
     if ((window as any).android) {
-      (window as any).android.sendMessage(data);
+      (window as any).android.sendMessage(JSON.stringify(data));
     }
   };
 
