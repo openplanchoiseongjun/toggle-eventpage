@@ -18,11 +18,14 @@ const Home: NextPage = () => {
       screen_moving_url:
         "https://kr.trip.com/sale/w/2348/weekendsupersale.html?locale=ko_kr&AllianceID=1299066&SID=3763636",
     };
+    console.log(data);
     // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
     if ((window as any).webkit) {
       (window as any).webkit.messageHandlers.iosMessage.postMessage(data);
     }
-    if ((window as any).android) sendMessage(data);
+    if ((window as any).android) {
+      (window as any).android.sendMessage(data);
+    }
   };
 
   return (
