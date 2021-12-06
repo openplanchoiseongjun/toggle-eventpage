@@ -4,19 +4,15 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  function showAndroidToast(toast: string) {
-    (window as any).Android.showToast(toast);
+  function sendMessage(msg: string) {
+    (window as any).android.setMessage(msg);
   }
   const callNative = () => {
     // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
     (window as any).webkit.messageHandlers.iosMessage.postMessage(
       "메세지호출1"
     );
-    showAndroidToast("안드로이드메세지호출");
-  };
-
-  const iosCall = () => {
-    alert("ios call");
+    sendMessage("안드로이드메세지호출");
   };
 
   return (
