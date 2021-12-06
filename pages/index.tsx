@@ -9,10 +9,12 @@ const Home: NextPage = () => {
   }
   const callNative = () => {
     // window.webkit.messageHandler.callbackHandler.postMessage("메세지호출");
-    (window as any).webkit.messageHandlers.iosMessage.postMessage(
-      "메세지호출1"
-    );
-    sendMessage("안드로이드메세지호출");
+    if ((window as any).webkit) {
+      (window as any).webkit.messageHandlers.iosMessage.postMessage(
+        "메세지호출1"
+      );
+    }
+    if ((window as any).android) sendMessage("안드로이드메세지호출");
   };
 
   return (
